@@ -1,0 +1,25 @@
+import torch
+import time
+
+# CPU
+a = torch.rand(5000, 5000)
+b = torch.rand(5000, 5000)
+
+start = time.time()
+c = torch.matmul(a, b)
+end = time.time()
+
+print("CPU Time:", end - start)
+
+# GPU
+device = "cuda"
+
+a_gpu = a.to(device)
+b_gpu = b.to(device)
+
+start = time.time()
+c_gpu = torch.matmul(a_gpu, b_gpu)
+torch.cuda.synchronize()
+end = time.time()
+
+print("GPU Time:", end - start)
